@@ -61,7 +61,7 @@ def on_press(key):
       stream.start()
 
     # If recording and the translate key is pressed, set translate to True and throw away the keypress.
-    if key == translate_key:
+    if recording and key == translate_key:
       print("Translate key pressed.")
       translate = True
       
