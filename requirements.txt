@@ -1,0 +1,5 @@
+sounddevice
+numpy
+openai
+pynput
+scipy
