@@ -123,19 +123,25 @@ def on_release(key):
           transcript_text = result["choices"][0]["message"]["content"]
           print(transcript_text)
 
-        # Copy the transcript text to the clipboard
-        pyperclip.copy(transcript_text)
+        # Determine if any special characters are being used that can't be
+        # typed using keyboard.type(). These are any characters that aren't in English
+        allowed_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .,;:!?-_')
+        special_chars = set(transcript_text) - allowed_chars
+        if len(special_chars) > 0:
+          print("Special characters detected")
 
-        # Simulate CTRL-V to paste the text
-        keyboard.press(Key.ctrl)
-        keyboard.press('v')
-        keyboard.release('v')
-        keyboard.release(Key.ctrl)
-        
-        # Didn't work for accents
-        # keyboard.type(transcript_text)
+          # Copy the transcript text to the clipboard
+          pyperclip.copy(transcript_text)
+
+          # Simulate CTRL-V to paste the text
+          keyboard.press(Key.ctrl)
+          keyboard.press('v')
+          keyboard.release('v')
+          keyboard.release(Key.ctrl)
+        else:  
+          # Since there are no accents, we can just use the standard type command.
+          keyboard.type(transcript_text)
       
-
 # Start listening for key events
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
