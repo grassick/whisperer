@@ -1,6 +1,7 @@
 import sounddevice as sd
 import numpy as np
 import openai
+import pyperclip
 from pynput.keyboard import Listener, Controller, Key, KeyCode
 from scipy.io.wavfile import write
 
@@ -122,7 +123,17 @@ def on_release(key):
           transcript_text = result["choices"][0]["message"]["content"]
           print(transcript_text)
 
-        keyboard.type(transcript_text)
+        # Copy the transcript text to the clipboard
+        pyperclip.copy(transcript_text)
+
+        # Simulate CTRL-V to paste the text
+        keyboard.press(Key.ctrl)
+        keyboard.press('v')
+        keyboard.release('v')
+        keyboard.release(Key.ctrl)
+        
+        # Didn't work for accents
+        # keyboard.type(transcript_text)
       
 
 # Start listening for key events
