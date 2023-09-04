@@ -14,11 +14,18 @@ Whisperer is a Python application that records audio when a specific key is held
 - openai
 - pynput
 - scipy
+- pyperclip
 
 You can install these dependencies using pip:
 
 ```
-pip install sounddevice numpy openai pynput scipy
+pip install sounddevice numpy openai pynput scipy pyperclip
+```
+
+On Linux, also run:
+
+```
+sudo apt-get install xclip
 ```
 
 ## Setup
