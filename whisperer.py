@@ -125,7 +125,7 @@ def on_release(key):
 
         # Determine if any special characters are being used that can't be
         # typed using keyboard.type(). These are any characters that aren't in English
-        allowed_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ .,;:!?-\'_')
+        allowed_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,;:!?-\'_')
         special_chars = set(transcript_text) - allowed_chars
         if len(special_chars) > 0:
           print("Special characters detected: " + str(special_chars))
