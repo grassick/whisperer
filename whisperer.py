@@ -3,7 +3,7 @@ import numpy as np
 import openai
 import pyperclip
 from pynput.keyboard import Listener, Controller, Key, KeyCode
-from scipy.io.wavfile import write
+import soundfile
 
 # Path to the file containing your OpenAI API key
 api_key_path = 'openai_api_key.txt'
@@ -94,10 +94,10 @@ def on_release(key):
         return
 
       # Write audio data to file
-      write("output.wav", 16000, audio_data_np)
+      soundfile.write('output.flac', audio_data_np, 16000, format='flac')
       
       # Save or send the audio_data_np to OpenAI Whisper
-      with open("output.wav", "rb") as file:
+      with open("output.flac", "rb") as file:
         print("Sending audio data to OpenAI Whisper...")
         transcript = openai.Audio.transcribe("whisper-1", file, prompt="How are you doing today? I'm really looking forward to seeing you again!")
         transcript_text = transcript["text"]

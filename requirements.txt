@@ -2,5 +2,5 @@ sounddevice
 numpy
 openai
 pynput
-scipy
+soundfile
 pyperclip
