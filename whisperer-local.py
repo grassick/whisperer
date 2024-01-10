@@ -53,7 +53,7 @@ keyboard = Controller()
 def on_press(key):
     global recording, stream, audio_data, translate
 
-    if key == record_key:
+    if key == record_key and not recording:
       recording = True
       translate = False
       print("Recording started...")
@@ -99,7 +99,7 @@ def on_release(key):
       # Write audio data to file
       write("output.wav", 16000, audio_data_np)
       
-      result = model.transcribe("output.wav", initial_prompt="How are you doing today? I'm really looking forward to seeing you again!")
+      result = model.transcribe("output.wav", initial_prompt="How are you doing today? I'm really looking forward to seeing you again!", fp16=False)
       transcript_text = result["text"]
 
       # Replace "New paragraph." with "\n"
@@ -119,6 +119,7 @@ def on_release(key):
           model="gpt-4",
           messages=[
             {"role": "system", "content": "You translate the input text to Quebec French. You only output the text and nothing else."},
+            # {"role": "system", "content": "You take the input and make it polite, business appropriate, and kind. You only output the text and nothing else."},
             {"role": "user", "content": transcript_text},
           ]
         )

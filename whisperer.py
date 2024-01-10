@@ -50,7 +50,7 @@ keyboard = Controller()
 def on_press(key):
     global recording, stream, audio_data, translate
 
-    if key == record_key:
+    if key == record_key and not recording:
       recording = True
       translate = False
       print("Recording started...")
