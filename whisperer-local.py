@@ -22,6 +22,8 @@ recording = False
 audio_data = []
 stream = None
 translate = False
+# If true, the transcript will be copied to the clipboard even it doesn't contain any special characters.
+force_clipboard = False
 
 model = whisper.load_model("small.en")
 
@@ -70,7 +72,7 @@ def on_press(key):
       translate = True
       
 def on_release(key):
-    global recording, stream, translate
+    global recording, stream, translate, force_clipboard
 
     if key == record_key:
       recording = False
@@ -91,6 +93,10 @@ def on_release(key):
 
       # Get length of audio data in seconds
       audio_data_length = len(audio_data_np) / 16000
+
+      # If was start of a double-click, set force_clipboard to True
+      if audio_data_length < 0.5:
+        force_clipboard = True
 
       if audio_data_length < 1:
         print("Audio data is less than 1 second long.")
@@ -131,7 +137,7 @@ def on_release(key):
       # typed using keyboard.type(). These are any characters that aren't in English
       allowed_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,;:!?-\'_')
       special_chars = set(transcript_text) - allowed_chars
-      if len(special_chars) > 0:
+      if len(special_chars) > 0 or force_clipboard:
         print("Special characters detected: " + str(special_chars))
 
         # Copy the transcript text to the clipboard
@@ -142,6 +148,8 @@ def on_release(key):
         keyboard.press('v')
         keyboard.release('v')
         keyboard.release(Key.ctrl)
+
+        force_clipboard = False
       else:  
         # Since there are no accents, we can just use the standard type command.
         keyboard.type(transcript_text)
