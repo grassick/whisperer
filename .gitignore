@@ -1,3 +1,11 @@
+# API keys
+*_api_key.txt
+
+# Recorded audio
 output.wav
 output.flac
-openai_api_key.txt
+
+# Python
+__pycache__/
+*.pyc
+.venv/

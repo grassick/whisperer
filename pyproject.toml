@@ -1,0 +1,17 @@
+[project]
+name = "whisperer"
+version = "0.1.0"
+description = "Push-to-talk dictation: hold a key, speak, and the transcript is typed into the active window"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "evdev>=1.7 ; sys_platform == 'linux'",
+    "numpy>=2.2.4",
+    "onnx-asr[cpu,hub]>=0.12",
+    "openai>=1.70.0",
+    "pynput>=1.8.1",
+    "pyperclip>=1.9.0",
+    "scipy>=1.10.0",
+    "sounddevice>=0.5.1",
+    "soundfile>=0.13.1",
+]

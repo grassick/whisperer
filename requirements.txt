@@ -1,6 +1,0 @@
-sounddevice
-numpy
-openai
-pynput
-soundfile
-pyperclip
